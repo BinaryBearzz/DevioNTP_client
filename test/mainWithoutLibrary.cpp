@@ -1,4 +1,4 @@
-//Littles Noom 19/12/2020
+//Littles Noom(BinaryBear) 19/12/2020 Prototype 
 #include <Arduino.h>
 #include <HardwareSerial.h>
 #define hwResetPin 26
