@@ -106,7 +106,7 @@ String NTP_Devio::getTime(unsigned int format)
         String hour_sub = time_sub.substring(9, 11);
         String minuteAsec_sub = time_sub.substring(11, time_sub.length());
         ////For Time Thai Zone
-        if(year_sub == "00") //Module Not Ready
+        if(year_sub == "00") //Module Not Ready -->01:01:2000
         {
           currentDate = "null";
           onlyMinute = "null";
