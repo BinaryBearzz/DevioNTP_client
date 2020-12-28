@@ -11,12 +11,12 @@ void setup()
 
 void loop()
 {
-    if(millis() - prevMillis > 5000)
+    if(millis() - prevMillis > 1000)
     {
       prevMillis = millis();
-      Serial.println("Current Time 0 :"+NBtime.getTime(0)); 
-      Serial.println("Current Time 1 :"+NBtime.getTime(1));
-      Serial.println("Current Time 2 :"+NBtime.getTime(2));
+      Serial.println("Current Time 0 :"+NBtime.getTime()); 
+      // Serial.println("Current Time 1 :"+NBtime.getTime(1));
+      // Serial.println("Current Time 2 :"+NBtime.getTime(2));
       Serial.println("Current date :"+NBtime.currentDate);
       Serial.println("only Hour :"+NBtime.onlyHour);
       Serial.println("only Minute :"+NBtime.onlyMinute);

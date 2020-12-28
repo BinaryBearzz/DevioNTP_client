@@ -127,17 +127,18 @@ String NTP_Devio::getTime(unsigned int format)
           onlyMouth = mount_sub;
           onlyYear = "20"+year_sub;  
         }
-                
-        if (format == 0) //Time : dd/mm/yy >>>17:02:33 18/12/2020
+
+        if (format == 0) // dd/mm/yy Time >>>18/12/2020 17:02:33
+        {
+          thai_time = date_sub + "/" + mount_sub + "/20" + year_sub + " " + hour_sub + minuteAsec_sub;
+          return thai_time;
+        }  
+        else if (format == 1) //Time : dd/mm/yy >>>17:02:33 18/12/2020
         {
           thai_time = hour_sub + minuteAsec_sub + " " + date_sub + "/" + mount_sub + "/20" + year_sub;
           return thai_time;
         }
-        else if (format == 1) // dd/mm/yy Time >>>18/12/2020 17:02:33
-        {
-          thai_time = date_sub + "/" + mount_sub + "/20" + year_sub + " " + hour_sub + minuteAsec_sub;
-          return thai_time;
-        }
+
         else if (format == 2) //Time Stamp  yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"  >>2020-12-18T17:02:33.1000001+07:00
         {
           thai_time =  "20" + year_sub + "-" + mount_sub + "-" + date_sub + "T" + hour_sub + minuteAsec_sub + ".1000001+07:00";
