@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "NTP_Devio.h"
-
+using namespace std;
 unsigned long prevMillis = 0;
 NTP_Devio NBtime;
 void setup()

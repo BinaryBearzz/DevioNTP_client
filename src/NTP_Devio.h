@@ -7,7 +7,7 @@ private:
     String data_input;   
 public:
     NTP_Devio();
-    void Begin();
+    void Begin();  
     String currentDate;
     String onlyHour;
     String onlyMinute;

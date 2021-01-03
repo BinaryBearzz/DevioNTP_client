@@ -1,3 +1,4 @@
+//BinaryBear NBIoT_NTP_client ver. 1.0
 #include <Arduino.h>
 #include "NTP_Devio.h"
 #include "HardwareSerial.h"
@@ -12,7 +13,7 @@ NTP_Devio::NTP_Devio() {}
 void NTP_Devio::reboot_module()
 {
   pinMode(hwResetPin, OUTPUT); //Reset HW
-  pinMode(2,OUTPUT); //LED Buildin
+  // pinMode(2,OUTPUT); //LED Build in
   digitalWrite(hwResetPin, LOW);
   delay(1000);
   digitalWrite(hwResetPin, HIGH);
@@ -52,7 +53,7 @@ void NTP_Devio::setupModule()
 
 void NTP_Devio::setupNTPserver()
 {
-  Serial.println("Set NTP Server");
+  Serial.println("Setup NTP Server");
   //_serial->println(F("AT+CSNTPSTOP"));
   _serial->println(F("AT+CURTC=1"));
   delay(500);
@@ -71,7 +72,7 @@ void NTP_Devio::setupNTPserver()
         break;
       }
       else if (data_input.indexOf(F("ERROR")) != -1) {
-        Serial.println("NTP Server Register yet...");
+        Serial.println("NTP Server is Register yet...");
         break;
       }
     }
@@ -117,37 +118,57 @@ String NTP_Devio::getTime(unsigned int format)
           onlyYear = "null"; 
           return "NTP Not Ready Please Wait...";
         }
-        else
-        {
-          currentDate = date_sub + "/" + mount_sub + "/20" + year_sub;
-          onlyMinute = minuteAsec_sub.substring(1,3);
-          onlyHour = hour_sub;
 
-          onlyDay = date_sub;
-          onlyMouth = mount_sub;
-          onlyYear = "20"+year_sub;  
-        }
+        currentDate = date_sub + "/" + mount_sub + "/20" + year_sub;
+        onlyMinute = minuteAsec_sub.substring(1,3);
+        onlyHour = hour_sub;
 
-        if (format == 0) // dd/mm/yy Time >>>18/12/2020 17:02:33
+        onlyDay = date_sub;
+        onlyMouth = mount_sub;
+        onlyYear = "20"+year_sub;  
+
+        switch (format)
         {
+        case 0:
           thai_time = date_sub + "/" + mount_sub + "/20" + year_sub + " " + hour_sub + minuteAsec_sub;
           return thai_time;
-        }  
-        else if (format == 1) //Time : dd/mm/yy >>>17:02:33 18/12/2020
-        {
+          break;
+        case 1:
           thai_time = hour_sub + minuteAsec_sub + " " + date_sub + "/" + mount_sub + "/20" + year_sub;
           return thai_time;
-        }
-
-        else if (format == 2) //Time Stamp  yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"  >>2020-12-18T17:02:33.1000001+07:00
-        {
+          break;
+        case 2:
           thai_time =  "20" + year_sub + "-" + mount_sub + "-" + date_sub + "T" + hour_sub + minuteAsec_sub + ".1000001+07:00";
           return thai_time;
+          break;        
+        default:
+          return "Wrong Parameter in Request Please Set Value GetTime(\"value\") only --> (0 - 2)";
+          break;
         }
+
+        // if (format == 0) // dd/mm/yy Time >>>18/12/2020 17:02:33
+        // {
+        //   thai_time = date_sub + "/" + mount_sub + "/20" + year_sub + " " + hour_sub + minuteAsec_sub;
+        //   return thai_time;
+        // }  
+        // else if (format == 1) //Time : dd/mm/yy >>>17:02:33 18/12/2020
+        // {
+        //   thai_time = hour_sub + minuteAsec_sub + " " + date_sub + "/" + mount_sub + "/20" + year_sub;
+        //   return thai_time;
+        // }
+
+        // else if (format == 2) //Time Stamp  yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"  >>2020-12-18T17:02:33.1000001+07:00
+        // {
+        //   thai_time =  "20" + year_sub + "-" + mount_sub + "-" + date_sub + "T" + hour_sub + minuteAsec_sub + ".1000001+07:00";
+        //   return thai_time;
+        // }
+
         // time_buffer = thai_time;
         // return time_buffer;
+
         break;
       }
+
       else if (data_input.indexOf(F("ERROR")) != -1)
       {
         Serial.println("ERROR Can't Call Time From NTP Server");
