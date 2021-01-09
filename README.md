@@ -1,4 +1,4 @@
-# DevioNTP_client
+# DevioNTP_client Ver.1.0.0
 ใช้สำหรับ Devio AIS NBIoT โมดูล(SIM7020E) Device 
 this Project Make for use Devio sync Time from NTP Server
 โปรเจ็คนี้ใช้สำหรับทำการ Sync เวลาจาก NTP Server มาไว้บน RTC ของโมดูล SIM7020E (เท่าที่ลองอ่านจาก Manual นะครับผิดพลาดอย่างอะไรขออภัยด้วย) โดย Sync ใหม่ทุกครั้งหลังจากมีการ Power on ตัวอุปกรณ์ขึ้น

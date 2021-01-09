@@ -165,7 +165,7 @@ String NTP_Devio::getTime(unsigned int format)
 
         // time_buffer = thai_time;
         // return time_buffer;
-
+        
         break;
       }
 
