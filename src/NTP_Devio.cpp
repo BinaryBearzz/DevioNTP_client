@@ -178,7 +178,7 @@ String NTP_Devio::getTime(unsigned int format)
   }
 }
 
-void NTP_Devio::Begin()
+void NTP_Devio::TimeBegin()
 {
   setupModule();
   setupNTPserver();

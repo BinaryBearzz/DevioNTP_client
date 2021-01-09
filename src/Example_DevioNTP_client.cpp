@@ -1,11 +1,12 @@
 #include <Arduino.h>
 #include "NTP_Devio.h"
+
 unsigned long prevMillis = 0;
 NTP_Devio NBtime;
 void setup()
 {
     Serial.begin(9600);
-    NBtime.Begin();
+    NBtime.TimeBegin();
 }
 
 void loop()
