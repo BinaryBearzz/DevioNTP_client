@@ -41,26 +41,24 @@ void NTP_Devio::setupModule()
             break;
         }
         else if (data_input.indexOf(F("ERROR")) != -1) 
-        {
-            delay(500);
-            _serial->println(F("AT"));
-            delay(100);
-            Serial.print(F("."));
-        }    
+          {
+              delay(500);
+              _serial->println(F("AT"));
+              delay(100);
+              Serial.print(F("."));
+          }    
         }
     }
 }
 
-void NTP_Devio::setupNTPserver()
+void NTP_Devio::setupNTP_rtc_timezone(String timeZone)
 {
-  Serial.println("Setup NTP Server");
-  //_serial->println(F("AT+CSNTPSTOP"));
-  _serial->println(F("AT+CURTC=1"));
-  delay(500);
-  _serial->println(F("AT+CRESET"));
-  delay(500);
-  //_serial->println(F("AT+CSNTPSTART=\"1.th.pool.ntp.org\",+28"));
-  _serial->println(F("AT+CSNTPSTART=\"1.th.pool.ntp.org\",+07"));
+  Serial.println("------------------------------------------");
+  Serial.println("Setup NTP Server RTC and Time Zone on \""+timeZone+"\"");
+  Serial.println("For Change Time Zone Please Reset or power off board 1 time after Upload...");
+  Serial.println("------------------------------------------");
+  delay(1000);
+  _serial->println("AT+CSNTPSTART=\"1.th.pool.ntp.org\","+timeZone);
   while (1) {
     if (_serial->available()) 
     {
@@ -68,7 +66,35 @@ void NTP_Devio::setupNTPserver()
       // Serial.println(data_input);
       if (data_input.indexOf(F("OK")) != -1) 
       {
-        Serial.println("NTP Server Start...");
+        Serial.println("NTP Server Start..");
+        break;
+      }
+      else if (data_input.indexOf(F("ERROR")) != -1) {
+        Serial.println("NTP Server is Register yet...");
+        break;
+      }
+    }
+  }
+  Serial.println(".");
+}
+
+void NTP_Devio::setupNTPserver()
+{
+  Serial.println("Setup NTP Server");
+  _serial->println(F("AT+CURTC=1"));
+  delay(500);
+  _serial->println(F("AT+CRESET"));
+  delay(500);
+  // _serial->println(F("AT+CSNTPSTART=\"1.th.pool.ntp.org\",+00"));
+  _serial->println(F("AT+CSNTPSTART=\"1.th.pool.ntp.org\""));
+  while (1) {
+    if (_serial->available()) 
+    {
+      data_input = _serial->readStringUntil('\n');
+      // Serial.println(data_input);
+      if (data_input.indexOf(F("OK")) != -1) 
+      {
+        Serial.println("NTP Server Start..");
         break;
       }
       else if (data_input.indexOf(F("ERROR")) != -1) {
@@ -176,6 +202,13 @@ String NTP_Devio::getTime(unsigned int format)
       }
     }
   }
+}
+
+void NTP_Devio::TimeBeginWithZone(String timeZone)
+{
+  String buff = timeZone;
+  setupModule();
+  setupNTP_rtc_timezone(buff);
 }
 
 void NTP_Devio::TimeBegin()

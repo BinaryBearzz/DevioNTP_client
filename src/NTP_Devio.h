@@ -7,13 +7,15 @@ private:
     String data_input;   
 public:
     NTP_Devio();
-    void TimeBegin();  
+    void TimeBegin(); //Time Thaizone
+    void TimeBeginWithZone(String timeZone); 
     String currentDate;
     String onlyHour;
     String onlyMinute;
     String onlyDay;
     String onlyMouth;
     String onlyYear;   
+    void setupNTP_rtc_timezone(String timeZone = "+7");
     void reboot_module();
     void setupModule();
     void setupNTPserver();
