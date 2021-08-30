@@ -82,7 +82,7 @@ String calltimeNTP(unsigned int format)
   String thai_time;
   NB.println(F("AT+CCLK?"));
 
-  delay(300);
+  delay(10);
   while (1)
   {
     if (NB.available())
