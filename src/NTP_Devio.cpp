@@ -26,12 +26,8 @@ void NTP_Devio::setupModule()
     Serial.print(F(">>Rebooting ."));
     reboot_module();
     Serial.println(F("..OK"));
-    if(isOwnSerial)
-    {
-      serialPort.begin(buadrate,SERIAL_8N1,Rxpin,Txpin);
-      _serial = &serialPort;
-      Serial.println("Work on Ownner Serial");
-    }
+    serialPort.begin(buadrate,SERIAL_8N1,Rxpin,Txpin);
+    _serial = &serialPort;
 
     Serial.print(F(">>Check module status "));
     

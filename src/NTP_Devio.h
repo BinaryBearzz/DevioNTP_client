@@ -5,7 +5,6 @@ class NTP_Devio
 {
 private:
     String data_input;   
-    boolean isOwnSerial = true;
 public:
     NTP_Devio();
     void TimeBegin(); //Time Thaizone
