@@ -8,6 +8,8 @@ HardwareSerial serialPort(1);
 #define Rxpin 16
 #define Txpin 17
 #define buadrate 9600
+
+
 NTP_Devio::NTP_Devio() {}
 
 void NTP_Devio::reboot_module()
@@ -19,14 +21,18 @@ void NTP_Devio::reboot_module()
   digitalWrite(hwResetPin, HIGH);
   delay(2000); 
 }
-
 void NTP_Devio::setupModule()
 {
     Serial.print(F(">>Rebooting ."));
     reboot_module();
     Serial.println(F("..OK"));
-    serialPort.begin(buadrate,SERIAL_8N1,Rxpin,Txpin);
-    _serial = &serialPort;
+    if(isOwnSerial)
+    {
+      serialPort.begin(buadrate,SERIAL_8N1,Rxpin,Txpin);
+      _serial = &serialPort;
+      Serial.println("Work on Ownner Serial");
+    }
+
     Serial.print(F(">>Check module status "));
     
     _serial->println(F("AT"));
@@ -111,7 +117,7 @@ String NTP_Devio::getTime(unsigned int format)
   String time_buffer;
   String thai_time;
   _serial->println(F("AT+CCLK?"));
-  delay(200);
+  delay(10);
   while (1)
   {
     if (_serial->available())
@@ -151,7 +157,7 @@ String NTP_Devio::getTime(unsigned int format)
 
         onlyDay = date_sub;
         onlyMouth = mount_sub;
-        onlyYear = "20"+year_sub;  
+        onlyYear = "20"+ year_sub;  
 
         switch (format)
         {
@@ -172,6 +178,7 @@ String NTP_Devio::getTime(unsigned int format)
           break;
         }
 
+        //# old return format
         // if (format == 0) // dd/mm/yy Time >>>18/12/2020 17:02:33
         // {
         //   thai_time = date_sub + "/" + mount_sub + "/20" + year_sub + " " + hour_sub + minuteAsec_sub;
