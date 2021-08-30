@@ -34,4 +34,4 @@ void TimeBeginWithZone(String timeZone);  \_เช่น อยากได้ T
 
 void stopQuaryTime();   ฟังก์ชั่นนี้ใช้สำหรับหยุด Query Time จาก network ซึ่งจากที่ทดลองแล้วผมยังไม่ทราบจุดประสงค์ที่แน่ชัดแต่ใน Manual AT command ของเขา จะใช้หลังจาก Get time เสร็จเสมอ 
 แต่จะใส่หรือไม่ใส่ผมก็ยังไม่เห็นผลต่างจากเดิมครับ
-ปล. ถ้าใช้ stopQuaryTime(); ในโหมด TimeBeginWithZone("xx"); จะทำให้ gettimeอยู่ทำงาน #จะไม่ใช้ก็ได้ครับฟังชั่น stopQuaryTime();
+ปล. ถ้าใช้ stopQuaryTime(); ในโหมด TimeBeginWithZone("xx"); จะทำให้ gettime หยุดทำงาน #จะไม่ใช้ก็ได้ครับฟังชั่น stopQuaryTime();
