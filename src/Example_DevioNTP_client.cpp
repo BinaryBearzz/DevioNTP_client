@@ -13,7 +13,7 @@ void setup()
 
 void loop()
 {
-    if(millis() - prevMillis > 1000)
+    if(millis() - prevMillis > 10000)
     {
       prevMillis = millis();
       Serial.println("Current Time 0 :"+NBtime.getTime()); 
